@@ -53,6 +53,7 @@ namespace Restaurant_Rater.Controllers
             {
                 return HttpNotFound();  //if restaurant doesn't exist it returns not found result
             }
+
             return View(restaurant);  //if restaurant exists return the view
         }
 
@@ -100,6 +101,22 @@ namespace Restaurant_Rater.Controllers
                 return RedirectToAction("Index");
             }
             return View(restaurant);
+        }
+
+        // GET: Restaurant/Details/{id}
+        public ActionResult Details(int? id) 
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);   //if id is null, bad request result
+            }
+            Restaurant restaurant = _db.Restaurants.Find(id);  //finds the restaurant entity in the database by id
+            if (restaurant == null)
+            {
+                return HttpNotFound();  //if restaurant doesn't exist it returns not found result
+            }
+
+            return View(restaurant);  //if restaurant exists return the view
         }
     }
 }
